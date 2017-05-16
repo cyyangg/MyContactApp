@@ -1,5 +1,6 @@
 package com.example.yangc9915.mycontactapp;
 
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,11 +31,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addData(View v) {
-        boolean isInsertedName = myDb.insertData(editName.getText().toString());
-        boolean isInsertedAge = myDb.insertData(editAge.getText().toString());
-        boolean isInsertedPhoneNum = myDb.insertData(editPhoneNum.getText().toString());
+        boolean isInsertedName = myDb.insertData(editName.getText().toString(),
+                editAge.getText().toString(), editPhoneNum.getText().toString());
 
-        if(isInsertedName == true && isInsertedAge == true && isInsertedPhoneNum == true){
+        if(isInsertedName == true){
             Log.d("MyContact", "Data insertion successful");
             //create toast message to user indicating data inserted correctly
             Toast.makeText(getApplicationContext(), "Data insertion successful", Toast.LENGTH_SHORT).show();
@@ -45,5 +45,40 @@ public class MainActivity extends AppCompatActivity {
             //create toast message to user indicating data inserted incorrectly
             Toast.makeText(getApplicationContext(), "Data insertion NOT successful", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void viewData(View v){
+        Cursor res = myDb.getAllData();
+        if (res.getCount() == 0){
+            showMessage("Error", "No data found in database");
+
+            //put a Log.d message and toast
+            Log.d("My Contact", "No data found in database");
+            Toast.makeText(getApplicationContext(), "No data found in database", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        StringBuffer buffer = new StringBuffer();
+        //setup loop with cursor moveToNext method
+        //      append each COL to buffer
+        //      use getString method
+        while (res != null){
+            res.moveToFirst();
+            for (int i=0; i<res.getCount(); i++){
+                for (int j=0; j<res.getColumnCount(); j++){
+                    buffer.append(res.getString(j) + "|");
+                }
+                buffer.append("\n");
+                res.moveToNext();
+            }
+            res.close();
+        }
+
+        showMessage("Data", buffer.toString());
+
+    }
+
+    private void showMessage(String title, String message) {
+
     }
 }

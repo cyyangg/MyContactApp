@@ -34,9 +34,9 @@
         android:layout_height="wrap_content"
         android:text="Add Data"
         android:id="@+id/button_add"
+        android:onClick="addData"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="addData" />
+        android:layout_toEndOf="@+id/textView2" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -73,5 +73,16 @@
         android:layout_below="@+id/textView3"
         android:layout_alignEnd="@+id/editText_age"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="VIEW DATA"
+        android:id="@+id/button_view"
+        android:layout_marginStart="35dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/textView3"
+        android:onClick="viewData"
+        android:nestedScrollingEnabled="false" />
 
 </RelativeLayout>
