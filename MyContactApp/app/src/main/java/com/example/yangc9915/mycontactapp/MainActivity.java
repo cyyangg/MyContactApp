@@ -1,6 +1,7 @@
 package com.example.yangc9915.mycontactapp;
 
 import android.database.Cursor;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
     EditText editName;
     EditText editAge;
     EditText editPhoneNum;
-    Button btnAddData;
 
 
     @Override
@@ -45,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
             //create toast message to user indicating data inserted incorrectly
             Toast.makeText(getApplicationContext(), "Data insertion NOT successful", Toast.LENGTH_SHORT).show();
         }
+
+        editName.setText("");
+        editAge.setText("");
+        editPhoneNum.setText("");
     }
 
     public void viewData(View v){
@@ -54,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
             //put a Log.d message and toast
             Log.d("My Contact", "No data found in database");
-            Toast.makeText(getApplicationContext(), "No data found in database", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -62,11 +65,11 @@ public class MainActivity extends AppCompatActivity {
         //setup loop with cursor moveToNext method
         //      append each COL to buffer
         //      use getString method
-        while (res != null){
+        if (res != null){
             res.moveToFirst();
             for (int i=0; i<res.getCount(); i++){
                 for (int j=0; j<res.getColumnCount(); j++){
-                    buffer.append(res.getString(j) + "|");
+                    buffer.append(res.getString(j) + "\n");
                 }
                 buffer.append("\n");
                 res.moveToNext();
@@ -79,6 +82,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showMessage(String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true); //cancel using back button
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.show();
 
     }
 }

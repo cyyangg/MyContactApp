@@ -79,10 +79,9 @@
         android:layout_height="wrap_content"
         android:text="VIEW DATA"
         android:id="@+id/button_view"
-        android:layout_marginStart="35dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/textView3"
         android:onClick="viewData"
-        android:nestedScrollingEnabled="false" />
+        android:nestedScrollingEnabled="false"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/textView3" />
 
 </RelativeLayout>
