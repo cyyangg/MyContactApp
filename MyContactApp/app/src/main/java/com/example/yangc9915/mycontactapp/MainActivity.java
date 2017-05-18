@@ -1,5 +1,6 @@
 package com.example.yangc9915.mycontactapp;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     EditText editName;
     EditText editAge;
     EditText editPhoneNum;
+    EditText search;
 
 
     @Override
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         editName = (EditText) findViewById(R.id.editText_name);
         editAge = (EditText) findViewById(R.id.editText_age);
         editPhoneNum = (EditText) findViewById(R.id.editText_phoneNum);
+        search = (EditText) findViewById(R.id.editText_search);
     }
 
     public void addData(View v) {
@@ -69,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             res.moveToFirst();
             for (int i=0; i<res.getCount(); i++){
                 for (int j=0; j<res.getColumnCount(); j++){
-                    buffer.append(res.getString(j) + "\n");
+                    buffer.append(res.getString(j) +  "\n");
                 }
                 buffer.append("\n");
                 res.moveToNext();
@@ -88,5 +91,40 @@ public class MainActivity extends AppCompatActivity {
         builder.setMessage(message);
         builder.show();
 
+    }
+
+
+    public void searchData(View v){
+        Cursor res = myDb.getAllData();
+        StringBuffer bufferSearch = new StringBuffer();
+        int count = 0;
+
+        if(res != null){
+            res.moveToFirst();
+            for (int i=0; i<res.getCount(); i++) {
+                for (int j = 0; j < res.getColumnCount(); j++) {
+                    if (res.getString(j).equals(search.getText().toString())) {
+                        bufferSearch.append(res.getString(j) + "\n" +res.getString(j+1) + "\n" + res.getString(j+2) + "\n");
+                        count++;
+                    }
+                }
+                bufferSearch.append("\n");
+                res.moveToNext();
+            }
+            res.close();
+        }
+        if (count != 0){
+            showMessage("Search", bufferSearch.toString());
+        }
+        else{
+            showMessage("Search", "No data found");
+        }
+
+        search.setText("");
+    }
+
+    public void searchNewPage(View v){
+        Intent i = new Intent(this, SearchActivity.class);
+        startActivity(i);
     }
 }
