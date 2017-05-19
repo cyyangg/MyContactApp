@@ -14,6 +14,9 @@ public class SearchActivity extends MainActivity {
     DatabaseHelper myDb;
     EditText search;
 
+    Intent intent = getIntent();
+    String data = intent.getStringExtra("data");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,17 +36,21 @@ public class SearchActivity extends MainActivity {
 
         myDb = super.myDb;
         search = (EditText) findViewById(R.id.editText_search);
+
+
+
     }
 
     public void searchData(View v){
         super.searchData(v);
-
     }
 
     public void home (View v){
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
+
+
 
 
 

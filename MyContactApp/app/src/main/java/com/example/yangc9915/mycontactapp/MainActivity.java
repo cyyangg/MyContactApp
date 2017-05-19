@@ -2,6 +2,7 @@ package com.example.yangc9915.mycontactapp;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Parcelable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     EditText search;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         editAge = (EditText) findViewById(R.id.editText_age);
         editPhoneNum = (EditText) findViewById(R.id.editText_phoneNum);
         search = (EditText) findViewById(R.id.editText_search);
+
+
     }
 
     public void addData(View v) {
@@ -125,6 +129,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void searchNewPage(View v){
         Intent i = new Intent(this, SearchActivity.class);
+        i.putExtra("data", myDb.getAllData().toString());
         startActivity(i);
+
     }
+
+
 }
