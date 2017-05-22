@@ -129,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void searchNewPage(View v){
         Intent i = new Intent(this, SearchActivity.class);
-        i.putExtra("data", myDb.getAllData().toString());
         startActivity(i);
 
     }
